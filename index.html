@@ -2369,13 +2369,16 @@ The SCORES JSON must be the absolute last line. Output GOOD_QUOTE, BAD_QUOTE, FO
     if (scoreMatch) {
       try { scores = JSON.parse(scoreMatch[1]); } catch(e) {}
     }
-    const goodQuoteMatch = fullReply.match(/GOOD_QUOTE:\s*([^\n]+)/);
-    const badQuoteMatch  = fullReply.match(/BAD_QUOTE:\s*([^\n]+)/);
-    const followupMatch  = fullReply.match(/FOLLOWUP:\s*([^\n]+(?:\n(?!BAD_QUOTE|GOOD_QUOTE|SCORES)[^\n]+)*)/);
-    const cleanQuote = s => s.replace(/\*+/g,'').replace(/^["']|["']$/g,'').trim();
-    const goodQuote  = cleanQuote(goodQuoteMatch  ? goodQuoteMatch[1].trim()  : '');
-    const badQuote   = cleanQuote(badQuoteMatch   ? badQuoteMatch[1].trim()   : '');
-    const followupTxt= followupMatch ? followupMatch[1].replace(/\*+/g,'').trim() : '';
+const goodQuoteMatch    = fullReply.match(/GOOD_QUOTE:\s*([^\n]+)/);
+    const badQuoteMatch     = fullReply.match(/BAD_QUOTE:\s*([^\n]+)/);
+    const improvementsMatch = fullReply.match(/IMPROVEMENTS:\s*([\s\S]+?)(?=JARGON_SUMMARY:|FOLLOWUP:|SCORES:|$)/);
+    const jargonMatch       = fullReply.match(/JARGON_SUMMARY:\s*([\s\S]+?)(?=FOLLOWUP:|SCORES:|$)/);
+    const followupMatch     = fullReply.match(/FOLLOWUP:\s*([^\n]+(?:\n(?!SCORES:)[^\n]+)*)/);
+const goodQuote      = cleanQuote(goodQuoteMatch  ? goodQuoteMatch[1].trim()  : '');
+    const badQuote       = cleanQuote(badQuoteMatch   ? badQuoteMatch[1].trim()   : '');
+    const improvementsTxt= improvementsMatch ? improvementsMatch[1].replace(/\*+/g,'').trim() : '';
+    const jargonTxt      = jargonMatch       ? jargonMatch[1].replace(/\*+/g,'').trim()       : '';
+    const followupTxt    = followupMatch     ? followupMatch[1].replace(/\*+/g,'').trim()     : '';
     // Strip all structured blocks from display reply
     const reply = fullReply
       .replace(/GOOD_QUOTE:[^\n]*/g,'')
