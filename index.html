@@ -2374,6 +2374,7 @@ const goodQuoteMatch    = fullReply.match(/GOOD_QUOTE:\s*([^\n]+)/);
     const improvementsMatch = fullReply.match(/IMPROVEMENTS:\s*([\s\S]+?)(?=JARGON_SUMMARY:|FOLLOWUP:|SCORES:|$)/);
     const jargonMatch       = fullReply.match(/JARGON_SUMMARY:\s*([\s\S]+?)(?=FOLLOWUP:|SCORES:|$)/);
     const followupMatch     = fullReply.match(/FOLLOWUP:\s*([^\n]+(?:\n(?!SCORES:)[^\n]+)*)/);
+    const cleanQuote = s => s.replace(/\*+/g,'').replace(/^["']|["']$/g,'').trim();
 const goodQuote      = cleanQuote(goodQuoteMatch  ? goodQuoteMatch[1].trim()  : '');
     const badQuote       = cleanQuote(badQuoteMatch   ? badQuoteMatch[1].trim()   : '');
     const improvementsTxt= improvementsMatch ? improvementsMatch[1].replace(/\*+/g,'').trim() : '';
