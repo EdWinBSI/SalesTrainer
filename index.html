@@ -2359,8 +2359,8 @@ Scoring: 1=poor, 3=average, 5=excellent. Most sessions score 2-3. Be strict on a
     const goodQuote      = cleanQuote(goodQuoteMatch  ? goodQuoteMatch[1].trim()  : '');
     const badQuote       = cleanQuote(badQuoteMatch   ? badQuoteMatch[1].trim()   : '');
     // Extract sections 3 and 4 from the debrief for the email
-    const section3Match = reply.match(/3\.\s*\*{0,2}What to do differently\*{0,2}[^\n]*((?:\n(?![1-9]\.|GOOD_QUOTE|BAD_QUOTE|FOLLOWUP|SCORES)[^\n]*)*)/i);
-    const section4Match = reply.match(/4\.\s*\*{0,2}Jargon[^\n]*((?:\n(?![1-9]\.|GOOD_QUOTE|BAD_QUOTE|FOLLOWUP|SCORES)[^\n]*)*)/i);
+    const section3Match = fullReply.match(/3\.\s*\*{0,2}What to do differently\*{0,2}[^\n]*((?:\n(?![1-9]\.|GOOD_QUOTE|BAD_QUOTE|FOLLOWUP|SCORES)[^\n]*)*)/i);
+    const section4Match = fullReply.match(/4\.\s*\*{0,2}Jargon[^\n]*((?:\n(?![1-9]\.|GOOD_QUOTE|BAD_QUOTE|FOLLOWUP|SCORES)[^\n]*)*)/i);
     const improvementsTxt = section3Match ? section3Match[0].replace(/\*+/g,'').trim() : (improvementsMatch ? improvementsMatch[1].replace(/\*+/g,'').trim() : '');
     const jargonTxt       = section4Match ? section4Match[0].replace(/\*+/g,'').trim() : (jargonMatch       ? jargonMatch[1].replace(/\*+/g,'').trim()       : '');
     const followupTxt    = followupMatch     ? followupMatch[1].replace(/\*+/g,'').trim()     : '';
